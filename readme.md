@@ -45,7 +45,7 @@ Desenvolver um sistema organizador financeiro para Hamon Corp, permitindo que co
 - **Interface Intuitiva**: Criar uma interface que seja fácil de navegar e intuitiva para o usuário final.
 - **Layout Responsivo**: Garantir que o layout seja responsivo e acessível em diferentes dispositivos, incluindo desktop e mobile.
 
-## 2.Objetivos SMART
+## 3.Objetivos SMART
 
 ## 1. Específico (Specific):
 Desenvolver um sistema que permita aos colaboradores da Hamon Corp registrar, categorizar e visualizar suas transações financeiras, garantindo que cada usuário tenha acesso apenas aos seus próprios dados por meio de login individual.
@@ -58,7 +58,7 @@ Este sistema é fundamental para Hamon Corp, pois otimizará o gerenciamento fin
 ## 5. Temporal (Time-bound):
 O sistema completo será desenvolvido e entregue em 12 semanas, com as funcionalidades principais (login, registro de transações e categorização) disponíveis no final da 8ª semana, e o módulo de relatórios finalizado até a 10ª semana.
 
-## 3. Cronograma 
+## 4. Cronograma 
 
 Semana 1-2: Análise de Requisitos e Prototipação do Design (UI/UX)
 Semana 3-4: Configuração do ambiente de desenvolvimento, criação da estrutura do projeto (Node.js, MongoDB, React).
@@ -71,10 +71,41 @@ Semana 12: Entrega, feedback e ajustes finais. gerar um código para usar no pla
 ## Diagrama de Gantt
 ![alt text](Cronograma.png)
 
-# 4. Análise de Riscos - Sistema Organizador Financeiro
+# 5. Análise de Riscos - Sistema Organizador Financeiro
 
 - **1. Falha na Segurança dos Dados**: Acesso indevido a dados financeiros. **Probabilidade**: Alta. **Impacto**: Muito alto. **Mitigação**: Criptografia de senhas (bcrypt), autenticação JWT, conexões HTTPS.
 - **2. Perda de Dados**: Perda de transações ou informações financeiras. **Probabilidade**: Moderada. **Impacto**: Alto. **Mitigação**: Backups automáticos e replicação no MongoDB.
 - **3. Desempenho Degradado**: Lentidão com aumento de usuários/transações. **Probabilidade**: Moderada. **Impacto**: Moderado. **Mitigação**: Otimização de consultas e uso de caching (Redis).
 - **4. Estouro de Prazo**: Atrasos no desenvolvimento. **Probabilidade**: Moderada. **Impacto**: Alto. **Mitigação**: Cronograma claro e entregas iterativas.
+
+# 6. Recursos Necessários - Sistema Organizador Financeiro
+
+## 1. Tecnológicos
+- **Node.js**: Backend para gerenciamento de transações e autenticação.
+- **React**: Frontend para interface de usuário responsiva e interativa.
+- **MongoDB**: Banco de dados NoSQL para armazenamento de dados financeiros.
+- **JWT (JSON Web Tokens)**: Autenticação segura para controle de acesso.
+- **Heroku/AWS**: Hospedagem e infraestrutura escalável.
+- **Git/GitHub**: Controle de versão e colaboração entre equipes.
+
+## 2. Equipe
+- **Desenvolvedor Full-Stack**: Para implementar e integrar o frontend (React) e backend (Node.js).
+- **Especialista em Segurança**: Para garantir a criptografia, autenticação JWT e segurança dos dados.
+- **Designer UI/UX**: Para desenvolver uma interface amigável e intuitiva.
+- **Gerente de Projeto**: Para coordenar o cronograma e o progresso do projeto.
+- **Tester/QA**: Para realizar testes de usabilidade, performance e segurança.
+
+## 3. Ferramentas de Desenvolvimento
+- **VSCode**: Ambiente de desenvolvimento integrado (IDE).
+- **Postman**: Para testes de APIs.
+- **Jira/Trello**: Gerenciamento de tarefas e acompanhamento do progresso.
+- **Docker**: Virtualização de ambientes para consistência de desenvolvimento.
+
+## 4. Recursos Humanos
+- **Treinamento**: Capacitação dos colaboradores em relação ao uso do sistema.
+- **Suporte Técnico**: Equipe para manter e atualizar o sistema pós-implantação.
+
+## 5. Orçamento
+- **Licenças e Infraestrutura**: Custos com serviços de hospedagem (Heroku/AWS), ferramentas de desenvolvimento e segurança (certificados SSL).
+- **Desenvolvimento**: Custo da equipe técnica para o desenvolvimento do sistema.
 
