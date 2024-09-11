@@ -71,48 +71,10 @@ Semana 12: Entrega, feedback e ajustes finais. gerar um código para usar no pla
 ## Diagrama de Gantt
 ![alt text](Cronograma.png)
 
-# Análise de Riscos - Sistema Organizador Financeiro
+# 4. Análise de Riscos - Sistema Organizador Financeiro
 
-## 1. Falha na Segurança dos Dados
-- **Descrição**: Acesso indevido a dados financeiros.
-- **Probabilidade**: Alta
-- **Impacto**: Muito alto
-- **Mitigação**: Criptografia de senhas (bcrypt), autenticação JWT, conexões HTTPS.
-
-## 2. Perda de Dados
-- **Descrição**: Perda de transações ou informações financeiras.
-- **Probabilidade**: Moderada
-- **Impacto**: Alto
-- **Mitigação**: Backups automáticos e replicação no MongoDB.
-
-## 4. Incompatibilidade Frontend/Backend
-- **Descrição**: Problemas de integração entre React e Node.js.
-- **Probabilidade**: Baixa
-- **Impacto**: Moderado
-- **Mitigação**: Boas práticas REST e testes de integração constantes.
-
-## 5. Dificuldade de Uso
-- **Descrição**: Sistema complicado para os colaboradores.
-- **Probabilidade**: Moderada
-- **Impacto**: Alto
-- **Mitigação**: Interface intuitiva e treinamento.
-
-## 6. Estouro de Prazo
-- **Descrição**: Atrasos no desenvolvimento.
-- **Probabilidade**: Moderada
-- **Impacto**: Alto
-- **Mitigação**: Cronograma claro e entregas iterativas.
-
-## 7. Sobrecarga de Servidor
-- **Descrição**: Sistema sobrecarregado com muitos usuários.
-- **Probabilidade**: Baixa
-- **Impacto**: Alto
-- **Mitigação**: Escalabilidade e monitoramento de recursos.
-
-## 8. Falha de Comunicação na Equipe
-- **Descrição**: Retrabalho devido à má comunicação.
-- **Probabilidade**: Moderada
-- **Impacto**: Moderado
-- **Mitigação**: Metodologias ágeis e ferramentas de colaboração.
-
+- **1. Falha na Segurança dos Dados**: Acesso indevido a dados financeiros. **Probabilidade**: Alta. **Impacto**: Muito alto. **Mitigação**: Criptografia de senhas (bcrypt), autenticação JWT, conexões HTTPS.
+- **2. Perda de Dados**: Perda de transações ou informações financeiras. **Probabilidade**: Moderada. **Impacto**: Alto. **Mitigação**: Backups automáticos e replicação no MongoDB.
+- **3. Desempenho Degradado**: Lentidão com aumento de usuários/transações. **Probabilidade**: Moderada. **Impacto**: Moderado. **Mitigação**: Otimização de consultas e uso de caching (Redis).
+- **4. Estouro de Prazo**: Atrasos no desenvolvimento. **Probabilidade**: Moderada. **Impacto**: Alto. **Mitigação**: Cronograma claro e entregas iterativas.
 
