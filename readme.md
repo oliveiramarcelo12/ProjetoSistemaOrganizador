@@ -108,13 +108,14 @@ Semana 12: Entrega, feedback e ajustes finais. gerar um código para usar no pla
 ## 5. Orçamento
 - **Licenças e Infraestrutura**: Custos com serviços de hospedagem (Heroku/AWS), ferramentas de desenvolvimento e segurança (certificados SSL).
 - **Desenvolvimento**: Custo da equipe técnica para o desenvolvimento do sistema.
+
 ## Diagramas:
 
 # Diagrama de Classes:
 ![Diagrama de Classe](diagramas/DiagramaClasse1.png)
 
 # Diagrama de Casos de Uso:
-
+![Diagrama de Uso](diagramas/DiagramaUso.png)
 
 # Diagrama de Fluxo:
 ![Diagrama de Fluxo](diagramas/DiagramaFluxo.png)
