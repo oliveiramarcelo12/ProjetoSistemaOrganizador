@@ -1,9 +1,9 @@
 # Escopo do Projeto: Sistema Organizador Financeiro para Hamon Corp
 
-## 1. Objetivo Geral
+# 1. Objetivo Geral
 Desenvolver um sistema organizador financeiro para Hamon Corp, permitindo que colaboradores gerenciem de forma segura e eficiente seus ganhos e despesas. O sistema permitirá controle financeiro personalizado, oferecendo funcionalidades como registro de transações, categorização de despesas e receitas, além de relatórios detalhados para apoio na tomada de decisões.
 
-## 2. Objetivos Específicos
+# 2. Objetivos Específicos
 - Implementar login individual para garantir que cada usuário tenha acesso apenas aos seus próprios dados financeiros.
 - Fornecer uma interface para registro de transações de ganhos e despesas.
 - Permitir a categorização de transações (ex.: alimentação, transporte, salário).
@@ -11,7 +11,7 @@ Desenvolver um sistema organizador financeiro para Hamon Corp, permitindo que co
 - Oferecer uma visualização gráfica das despesas e receitas ao longo do tempo.
 - Assegurar a segurança dos dados financeiros utilizando autenticação JWT e criptografia de senhas.
 
-# Requisitos Funcionais
+## Requisitos Funcionais
 - **Autenticação e Autorização**:
   - O sistema deve permitir o login e cadastro de usuários, garantindo que cada colaborador veja apenas suas transações.
   - Utilização de JWT para autenticação segura e persistente.
@@ -45,7 +45,7 @@ Desenvolver um sistema organizador financeiro para Hamon Corp, permitindo que co
 - **Interface Intuitiva**: Criar uma interface que seja fácil de navegar e intuitiva para o usuário final.
 - **Layout Responsivo**: Garantir que o layout seja responsivo e acessível em diferentes dispositivos, incluindo desktop e mobile.
 
-## 3.Objetivos SMART
+# 3.Objetivos SMART
 
 ## 1. Específico (Specific):
 Desenvolver um sistema que permita aos colaboradores da Hamon Corp registrar, categorizar e visualizar suas transações financeiras, garantindo que cada usuário tenha acesso apenas aos seus próprios dados por meio de login individual.
@@ -58,21 +58,21 @@ Este sistema é fundamental para Hamon Corp, pois otimizará o gerenciamento fin
 ## 5. Temporal (Time-bound):
 O sistema completo será desenvolvido e entregue em 12 semanas, com as funcionalidades principais (login, registro de transações e categorização) disponíveis no final da 8ª semana, e o módulo de relatórios finalizado até a 10ª semana.
 
-## 4. Cronograma 
+# 4. Cronograma 
 
 ## Semana 1-2: 
 Análise de Requisitos e Prototipação do Design (UI/UX)
-# Semana 3-4:
+## Semana 3-4:
  Configuração do ambiente de desenvolvimento, criação da estrutura do projeto (Node.js, MongoDB, React).
-# Semana 5-6:
+## Semana 5-6:
  Implementação de autenticação e gerenciamento de usuários.
-# Semana 7-8: 
+## Semana 7-8: 
 Desenvolvimento do módulo de registro de transações e categorização.
-# Semana 9-10: 
+## Semana 9-10: 
 Implementação de relatórios e visualização de dados financeiros.
-# Semana 11: 
+## Semana 11: 
 Testes de segurança e performance.
-# Semana 12: 
+## Semana 12: 
 Entrega, feedback e ajustes finais. gerar um código para usar no plantText
 
 ## Diagrama de Gantt
@@ -116,13 +116,13 @@ Entrega, feedback e ajustes finais. gerar um código para usar no plantText
 - **Licenças e Infraestrutura**: Custos com serviços de hospedagem (Heroku/AWS), ferramentas de desenvolvimento e segurança (certificados SSL).
 - **Desenvolvimento**: Custo da equipe técnica para o desenvolvimento do sistema.
 
-## Diagramas:
+# Diagramas:
 
-# Diagrama de Classes:
+## Diagrama de Classes:
 ![Diagrama de Classe](diagramas/DiagramaClasse1.png)
 
-# Diagrama de Casos de Uso:
+## Diagrama de Casos de Uso:
 ![Diagrama de Uso](diagramas/DiagramaUso.png)
 
-# Diagrama de Fluxo:
+## Diagrama de Fluxo:
 ![Diagrama de Fluxo](diagramas/DiagramaFluxo.png)
