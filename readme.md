@@ -60,7 +60,7 @@ O sistema completo será desenvolvido e entregue em 12 semanas, com as funcional
 
 ## 4. Cronograma 
 
-# Semana 1-2: 
+## Semana 1-2: 
 Análise de Requisitos e Prototipação do Design (UI/UX)
 # Semana 3-4:
  Configuração do ambiente de desenvolvimento, criação da estrutura do projeto (Node.js, MongoDB, React).
