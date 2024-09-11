@@ -69,7 +69,7 @@ Semana 11: Testes de segurança e performance.
 Semana 12: Entrega, feedback e ajustes finais. gerar um código para usar no plantText
 
 ## Diagrama de Gantt
-![alt text](Cronograma.png)
+![Cronograma](cronograma/Cronograma.png)
 
 # 5. Análise de Riscos - Sistema Organizador Financeiro
 
@@ -108,4 +108,12 @@ Semana 12: Entrega, feedback e ajustes finais. gerar um código para usar no pla
 ## 5. Orçamento
 - **Licenças e Infraestrutura**: Custos com serviços de hospedagem (Heroku/AWS), ferramentas de desenvolvimento e segurança (certificados SSL).
 - **Desenvolvimento**: Custo da equipe técnica para o desenvolvimento do sistema.
+## Diagramas:
 
+# Diagrama de Classes:
+![Diagrama de Classe](diagramas/DiagramaClasse1.png)
+
+# Diagrama de Casos de Uso:
+
+
+# Diagrama de Fluxo:
