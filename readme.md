@@ -11,7 +11,7 @@ Desenvolver um sistema organizador financeiro para Hamon Corp, permitindo que co
 - Oferecer uma visualização gráfica das despesas e receitas ao longo do tempo.
 - Assegurar a segurança dos dados financeiros utilizando autenticação JWT e criptografia de senhas.
 
-## Requisitos Funcionais
+# Requisitos Funcionais
 - **Autenticação e Autorização**:
   - O sistema deve permitir o login e cadastro de usuários, garantindo que cada colaborador veja apenas suas transações.
   - Utilização de JWT para autenticação segura e persistente.
@@ -60,13 +60,13 @@ O sistema completo será desenvolvido e entregue em 12 semanas, com as funcional
 
 ## 4. Cronograma 
 
-Semana 1-2: Análise de Requisitos e Prototipação do Design (UI/UX)
-Semana 3-4: Configuração do ambiente de desenvolvimento, criação da estrutura do projeto (Node.js, MongoDB, React).
-Semana 5-6: Implementação de autenticação e gerenciamento de usuários.
-Semana 7-8: Desenvolvimento do módulo de registro de transações e categorização.
-Semana 9-10: Implementação de relatórios e visualização de dados financeiros.
-Semana 11: Testes de segurança e performance.
-Semana 12: Entrega, feedback e ajustes finais. gerar um código para usar no plantText
+# Semana 1-2: Análise de Requisitos e Prototipação do Design (UI/UX)
+# Semana 3-4: Configuração do ambiente de desenvolvimento, criação da estrutura do projeto (Node.js, MongoDB, React).
+# Semana 5-6: Implementação de autenticação e gerenciamento de usuários.
+# Semana 7-8: Desenvolvimento do módulo de registro de transações e categorização.
+# Semana 9-10: Implementação de relatórios e visualização de dados financeiros.
+# Semana 11: Testes de segurança e performance.
+# Semana 12: Entrega, feedback e ajustes finais. gerar um código para usar no plantText
 
 ## Diagrama de Gantt
 ![Cronograma](cronograma/Cronograma.png)
