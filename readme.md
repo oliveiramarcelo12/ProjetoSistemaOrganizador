@@ -3,6 +3,50 @@
 ## 1. Objetivo Geral
 Desenvolver um sistema organizador financeiro para Hamon Corp, permitindo que colaboradores gerenciem de forma segura e eficiente seus ganhos e despesas. O sistema permitirá controle financeiro personalizado, oferecendo funcionalidades como registro de transações, categorização de despesas e receitas, além de relatórios detalhados para apoio na tomada de decisões.
 
+## 2. Objetivos Específicos
+- Implementar login individual para garantir que cada usuário tenha acesso apenas aos seus próprios dados financeiros.
+- Fornecer uma interface para registro de transações de ganhos e despesas.
+- Permitir a categorização de transações (ex.: alimentação, transporte, salário).
+- Gerar relatórios detalhados para acompanhamento financeiro por período, categoria e total de transações.
+- Oferecer uma visualização gráfica das despesas e receitas ao longo do tempo.
+- Assegurar a segurança dos dados financeiros utilizando autenticação JWT e criptografia de senhas.
+
+## Requisitos Funcionais
+- **Autenticação e Autorização**:
+  - O sistema deve permitir o login e cadastro de usuários, garantindo que cada colaborador veja apenas suas transações.
+  - Utilização de JWT para autenticação segura e persistente.
+- **Gestão de Transações**:
+  - Inserir, editar e excluir transações financeiras.
+  - Classificação de transações como “Despesa” ou “Receita”.
+  - Categorização de transações por categorias customizáveis.
+- **Relatórios e Visualizações**:
+  - Relatórios mensais e anuais com totais por categoria.
+  - Gráficos de receitas e despesas ao longo do tempo.
+  - Filtros para visualizar transações por período e categoria.
+- **Notificações**
+  - Alertas sobre datas de vencimento ou quando o saldo atinge um limite predefinido.
+
+1. **Alertas sobre Datas de Vencimento**: O sistema deve enviar notificações quando uma data de vencimento se aproximar.
+2. **Alertas de Saldo**: O sistema deve alertar quando o saldo atingir um limite predefinido.
+
+## Requisitos Não Funcionais
+
+### Segurança
+- **Criptografia de Senhas**: Utilizar bcrypt para criptografar senhas dos usuários.
+- **Autenticação Segura**: Implementar autenticação segura usando JWT (JSON Web Tokens).
+- **Conexão Segura com o Banco de Dados**: Utilizar TLS/SSL para garantir uma conexão segura com o banco de dados.
+
+### Escalabilidade
+- **Estrutura Modular**: Desenvolver uma arquitetura modular que permita a adição de novas funcionalidades sem comprometer o desempenho existente.
+
+### Performance
+- **Tempo de Resposta**: Assegurar que o tempo de resposta seja inferior a 2 segundos para a maioria das transações.
+- **Otimização de Consultas**: Implementar otimizações nas consultas ao MongoDB para melhorar o desempenho.
+
+### Usabilidade
+- **Interface Intuitiva**: Criar uma interface que seja fácil de navegar e intuitiva para o usuário final.
+- **Layout Responsivo**: Garantir que o layout seja responsivo e acessível em diferentes dispositivos, incluindo desktop e mobile.
+
 ## 2.Objetivos SMART
 
 ## 1. Específico (Specific):
@@ -28,3 +72,4 @@ Semana 12: Entrega, feedback e ajustes finais. gerar um código para usar no pla
 
 ## Diagrama de Gantt
 ![alt text](Cronograma.png)
+
