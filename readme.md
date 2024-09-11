@@ -117,3 +117,4 @@ Semana 12: Entrega, feedback e ajustes finais. gerar um código para usar no pla
 
 
 # Diagrama de Fluxo:
+![Diagrama de Fluxo](diagramas/DiagramaFluxo.png)
