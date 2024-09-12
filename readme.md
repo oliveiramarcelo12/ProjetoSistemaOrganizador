@@ -116,7 +116,7 @@ Entrega, feedback e ajustes finais. gerar um código para usar no plantText
 - **Licenças e Infraestrutura**: Custos com serviços de hospedagem (Heroku/AWS), ferramentas de desenvolvimento e segurança (certificados SSL).
 - **Desenvolvimento**: Custo da equipe técnica para o desenvolvimento do sistema.
 
-# Diagramas:
+# Diagramas
 
 ## Diagrama de Classes:
 ![Diagrama de Classe](diagramas/DiagramaClasse1.png)
@@ -126,3 +126,14 @@ Entrega, feedback e ajustes finais. gerar um código para usar no plantText
 
 ## Diagrama de Fluxo:
 ![Diagrama de Fluxo](diagramas/DiagramaFluxo.png)
+
+# Prototipagem
+
+## Baixa Fidelidade:
+![Baixa Fidelidade](img/BaixaFidelidade.png)
+
+## Média Fidelidade:
+![Média Fidelidade](img/MediaFidelidade.png)
+
+## Alta Fidelidade;
+![Alta Fidelidade](img/AltaFidelidade.png)
