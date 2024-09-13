@@ -135,5 +135,5 @@ Entrega, feedback e ajustes finais. gerar um código para usar no plantText
 ## Média Fidelidade:
 ![Média Fidelidade](img/MediaFidelidade.png)
 
-## Alta Fidelidade;
+## Alta Fidelidade:
 ![Alta Fidelidade](img/AltaFidelidade.png)
