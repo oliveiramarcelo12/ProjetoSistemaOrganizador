@@ -2,13 +2,10 @@ import User from '../models/User';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
+
 export const registrarUsuario = async (req, res) => {
     try {
-        const { nome, email, senha, tipo } = req.body;
-
-        // Definir se o usuário é admin ou colaborador com base no tipo
-        const isAdmin = tipo === 'admin';
-        const isColaborador = tipo === 'colaborador';
+        const { nome, email, senha } = req.body;
 
         // Verificar se o e-mail já existe
         const usuarioExistente = await User.findOne({ email });
@@ -23,9 +20,7 @@ export const registrarUsuario = async (req, res) => {
         const novoUsuario = new User({ 
             nome, 
             email, 
-            password: senhaHash, 
-            isAdmin, 
-            isColaborador 
+            password: senhaHash 
         });
         await novoUsuario.save();
 
@@ -39,7 +34,10 @@ export const registrarUsuario = async (req, res) => {
 
 
 
-// Realizar login do usuário
+import User from '../models/User';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+
 export const loginUsuario = async (req, res) => {
     try {
         const { email, senha } = req.body;
@@ -51,21 +49,26 @@ export const loginUsuario = async (req, res) => {
         }
 
         // Verificar se a senha está correta
-        const senhaCorreta = await bcrypt.compare(senha, usuario.senha);
+        const senhaCorreta = await bcrypt.compare(senha, usuario.password);
         if (!senhaCorreta) {
             return res.status(401).json({ message: "Senha incorreta." });
         }
 
         // Gerar token JWT
-        const token = jwt.sign({ id: usuario._id, tipo: usuario.tipo }, process.env.JWT_SECRET, { expiresIn: '1d' });
+        const token = jwt.sign({ id: usuario._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
 
-        res.status(200).json({ message: "Login bem-sucedido.", token });
+        // Definir URL de redirecionamento
+        const redirectUrl = '/transacoes'; // URL para a página de transações
+
+        res.status(200).json({ message: "Login bem-sucedido.", token, redirectUrl });
     } catch (error) {
+        console.error('Erro ao realizar login:', error);
         res.status(500).json({ message: "Erro ao realizar login.", error });
     }
 };
 
-// Atualizar informações do perfil do usuário
+
+
 export const atualizarPerfil = async (req, res) => {
     try {
         const { nome, email } = req.body;
@@ -77,15 +80,10 @@ export const atualizarPerfil = async (req, res) => {
     }
 };
 
-// Deletar um usuário (apenas administrador)
+
 export const deletarUsuario = async (req, res) => {
     try {
         const { id } = req.params;
-
-        // Verificar se o usuário é administrador
-        if (req.user.tipo !== 'admin') {
-            return res.status(403).json({ message: "Acesso negado." });
-        }
 
         await User.findByIdAndDelete(id);
         res.status(200).json({ message: "Usuário deletado com sucesso." });
@@ -94,17 +92,5 @@ export const deletarUsuario = async (req, res) => {
     }
 };
 
-// Listar todos os usuários (apenas administrador)
-export const listarUsuarios = async (req, res) => {
-    try {
-        // Verificar se o usuário é administrador
-        if (req.user.tipo !== 'admin') {
-            return res.status(403).json({ message: "Acesso negado." });
-        }
 
-        const usuarios = await User.find();
-        res.status(200).json(usuarios);
-    } catch (error) {
-        res.status(500).json({ message: "Erro ao listar usuários.", error });
-    }
-};
+

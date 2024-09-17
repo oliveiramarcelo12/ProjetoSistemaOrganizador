@@ -1,17 +1,22 @@
-// config/db.js
-const mongoose = require('mongoose');
+// utils/dbConnect.js
+import mongoose from 'mongoose';
 
-const conectarDB = async () => {
-  try {
-    await mongoose.connect('mongodb://localhost:27017/projeto-organizador-financeiro', {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    });
-    console.log('Conectado ao MongoDB');
-  } catch (error) {
-    console.error('Erro ao conectar ao MongoDB', error);
-    process.exit(1);
-  }
+const connectMongo = async () => {
+    try {
+        // Substitua '<YOUR_MONGODB_URI>' pela URI real do MongoDB
+        const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017/projeto-organizador-financeiro';
+        if (!uri) {
+            throw new Error('A URI do MongoDB não está definida.');
+        }
+        await mongoose.connect(uri, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+        console.log('MongoDB conectado com sucesso!');
+    } catch (error) {
+        console.error('Erro ao conectar com o MongoDB:', error);
+        throw error;
+    }
 };
 
-module.exports = conectarDB;
+export default connectMongo;

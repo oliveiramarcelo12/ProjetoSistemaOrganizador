@@ -1,8 +1,6 @@
 'use client';
-
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import './TransacaoPage.css'; // Importando o CSS
 
 export default function TransacaoPage() {
   const [transacao, setTransacao] = useState([]);
@@ -13,22 +11,31 @@ export default function TransacaoPage() {
 
   useEffect(() => {
     const fetchTransacao = async () => {
+      console.log('Fetching transactions...');
       const token = localStorage.getItem('token');
       if (!token) {
+        console.log('No token, redirecting to login...');
         router.push('/login');
         return;
       }
 
-      const response = await fetch('/api/transacao', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      try {
+        const response = await fetch('/api/transacao', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-      if (response.ok) {
-        const data = await response.json();
-        setTransacao(data.data);
-      } else {
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Transactions fetched:', data.data);
+          setTransacao(data.data);
+        } else {
+          console.log('Failed to fetch transactions, redirecting to login...');
+          router.push('/login');
+        }
+      } catch (error) {
+        console.error('Error fetching transactions:', error);
         router.push('/login');
       }
     };
@@ -38,33 +45,41 @@ export default function TransacaoPage() {
 
   const addTransacao = async () => {
     const token = localStorage.getItem('token');
-    const response = await fetch('/api/transacao', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ title: newTransacao }),
-    });
+    try {
+      const response = await fetch('/api/transacao', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ title: newTransacao }),
+      });
 
-    if (response.ok) {
-      const data = await response.json();
-      setTransacao([...transacao, data.data]);
-      setNewTransacao('');
+      if (response.ok) {
+        const data = await response.json();
+        setTransacao([...transacao, data.data]);
+        setNewTransacao('');
+      }
+    } catch (error) {
+      console.error('Error adding transaction:', error);
     }
   };
 
   const deleteTransacao = async (id) => {
     const token = localStorage.getItem('token');
-    await fetch(`/api/transacao`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ id }),
-    });
-    setTransacao(transacao.filter((transacao) => transacao._id !== id));
+    try {
+      await fetch(`/api/transacao`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ id }),
+      });
+      setTransacao(transacao.filter((transacao) => transacao._id !== id));
+    } catch (error) {
+      console.error('Error deleting transaction:', error);
+    }
   };
 
   const startEditTransacao = (transacao) => {
@@ -74,22 +89,26 @@ export default function TransacaoPage() {
 
   const updateTransacao = async () => {
     const token = localStorage.getItem('token');
-    const response = await fetch(`/api/transacao`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ id: editTransacaoId, title: editTitle }),
-    });
+    try {
+      const response = await fetch(`/api/transacao`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ id: editTransacaoId, title: editTitle }),
+      });
 
-    if (response.ok) {
-      const data = await response.json();
-      setTransacao(
-        transacao.map((transacao) => (transacao._id === data.data._id ? data.data : transacao))
-      );
-      setEditTransacaoId(null);
-      setEditTitle('');
+      if (response.ok) {
+        const data = await response.json();
+        setTransacao(
+          transacao.map((transacao) => (transacao._id === data.data._id ? data.data : transacao))
+        );
+        setEditTransacaoId(null);
+        setEditTitle('');
+      }
+    } catch (error) {
+      console.error('Error updating transaction:', error);
     }
   };
 

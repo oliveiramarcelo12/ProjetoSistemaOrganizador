@@ -1,38 +1,17 @@
-import { listarTransacoes,criarTransacao } from "@/controllers/TransacaoController";
-import { NextResponse } from "next/server";
+// pages/api/transacao/route.js
+import { jwtMiddleware } from "@/utils/middleware";
+import { listarTransacoes, criarTransacao } from "@/controllers/TransacaoController";
 
-
-export async function GET(userId) {
-    try {
-        const transacao = await listarTransacoes(userId);
-        return NextResponse.json({
-            success:true,
-            data:transacao
-        });
-    } catch (error) {
-        console.error(error,"Route");
-        return NextResponse.json(
-            {success:false},
-            {status:400}
-        );
-    }
+export async function GET(req, res) {
+    return jwtMiddleware(async (req, res) => {
+        await listarTransacoes(req, res);
+    })(req, res);
 }
 
-
-export async function POST(request) {
-    try {
-        const data = await request.json();
-        const task = await criarTransacao(data);
-        return NextResponse.json({
-            success:true,
-            data:transacao
-        })
-    } catch (error) {
-        console.error(error,"Route");
-        return NextResponse.json(
-            {success:false},
-            {status:400}
-        );
-    }
-   
+export async function POST(req, res) {
+    return jwtMiddleware(async (req, res) => {
+        await criarTransacao(req, res);
+    })(req, res);
 }
+
+// Adicione PUT e DELETE se necessário

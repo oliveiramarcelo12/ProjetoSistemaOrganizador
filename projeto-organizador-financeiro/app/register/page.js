@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-
+import './register.css';
 
 export default function RegisterPage() {
   const [name, setName] = useState('');
@@ -12,26 +12,28 @@ export default function RegisterPage() {
   const [error, setError] = useState(null);
   const router = useRouter();
 
-  const handleRegister = async () => {
-    if (password !== confirmPassword) {
+ // RegisterPage.js (frontend)
+const handleRegister = async () => {
+  if (password !== confirmPassword) {
       setError('As senhas não coincidem');
       return;
-    }
+  }
 
-    const response = await fetch('/api/auth/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ name, email, password }),
-    });
+  const response = await fetch('/api/auth/register', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ nome: name, email, password }),
+  });
 
-    if (response.ok) {
-      router.push('/login');
-    } else {
-      setError('Erro ao registrar');
-    }
-  };
+  if (response.ok) {
+    router.push('/login');
+  } else {
+    setError('Erro ao registrar');
+  }
+};
+
 
   return (
     <div className="register-container">

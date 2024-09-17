@@ -1,57 +1,21 @@
-'use client';
+// utils/middleware.js
+import jwt from 'jsonwebtoken';
 
+export function jwtMiddleware(handler) {
+    return async (req, res) => {
+        const token = req.headers.authorization?.split(' ')[1];
+        
+        if (!token) {
+            return res.status(401).json({ message: 'Token ausente' });
+        }
 
-import { useState } from 'react';
-import { useRouter } from 'next/router';
-
-
-export default function Register() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const router = useRouter();
-
-
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    const response = await fetch('/api/auth/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, password }),
-    });
-
-
-    if (response.ok) {
-      router.push('/login');
-    } else {
-      alert('Erro ao registrar');
-    }
-  };
-
-
-  return (
-    <form onSubmit={handleRegister}>
-      <input
-        type="text"
-        placeholder="Nome Usuário"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Email Usuário"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Senha"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button type="submit">Registrar</button>
-    </form>
-  );
+        try {
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            req.user = decoded; // Adiciona os dados do usuário ao req
+            return handler(req, res);
+        } catch (error) {
+            console.error('Token inválido', error);
+            return res.status(401).json({ message: 'Token inválido' });
+        }
+    };
 }
-
-

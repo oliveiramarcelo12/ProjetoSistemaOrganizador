@@ -1,14 +1,16 @@
-const mongoose = require('mongoose');
+import bcrypt from 'bcrypt';
+import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
-  nome: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  isAdmin: { type: Boolean, default: false },
-  isColaborador: { type: Boolean, default: false }
+    nome: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true }
 });
 
-// Usa `mongoose.models.User` para evitar sobrescrita
-const User = mongoose.models.User || mongoose.model('User', userSchema);
+// Método para comparar a senha
+userSchema.methods.comparePassword = async function(password) {
+    return await bcrypt.compare(password, this.password);
+};
 
-module.exports = User;
+const User = mongoose.models.User || mongoose.model('User', userSchema);
+export default User;

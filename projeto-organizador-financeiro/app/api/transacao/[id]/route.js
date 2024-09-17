@@ -1,31 +1,41 @@
-import { atualizarTransacao, deletarTransacao } from "@/controllers/TransacaoController"
-import { NextResponse } from "next/server"
-
+import { atualizarTransacao, deletarTransacao } from "@/controllers/TransacaoController";
+import { NextResponse } from "next/server";
 
 export async function PUT(request, { params }) {
     try {
+        // Obtenha o corpo da requisição
         const data = await request.json();
+
+        // Atualize a transação usando o ID fornecido nos parâmetros da URL
         const transacao = await atualizarTransacao(params.id, data);
+
+        // Verifique se a transação foi atualizada com sucesso
         if (!transacao) {
-            return NextResponse.json({ success: false }, { status: 400 });
+            return NextResponse.json({ success: false, message: 'Transação não encontrada ou não atualizada' }, { status: 404 });
         }
+
+        // Retorne a resposta com sucesso
         return NextResponse.json({ success: true, data: transacao });
     } catch (error) {
-        return NextResponse.json({ success: false }, { status: 400 });
+        console.error('Erro ao atualizar transação:', error);
+        return NextResponse.json({ success: false, message: 'Erro ao atualizar transação' }, { status: 500 });
     }
 }
 
-
-export async function DELETE({params}) {
+export async function DELETE(request, { params }) {
     try {
-        const transacao = await deletarTransacao(params.id);
-        if (!transacao) {
-            return NextResponse.json({ success: false }, { status: 400 });
+        // Deletar a transação usando o ID fornecido nos parâmetros da URL
+        const result = await deletarTransacao(params.id);
+
+        // Verifique se a transação foi deletada com sucesso
+        if (!result) {
+            return NextResponse.json({ success: false, message: 'Transação não encontrada ou não deletada' }, { status: 404 });
         }
-        return NextResponse.json({success: true, message: "Deletado com Sucesso"});
+
+        // Retorne a resposta com sucesso
+        return NextResponse.json({ success: true, message: 'Deletado com sucesso' });
     } catch (error) {
-        return NextResponse.json({ success: false }, { status: 400 });
+        console.error('Erro ao deletar transação:', error);
+        return NextResponse.json({ success: false, message: 'Erro ao deletar transação' }, { status: 500 });
     }
 }
-
-

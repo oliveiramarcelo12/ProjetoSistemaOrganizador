@@ -5,8 +5,9 @@ import bcrypt from 'bcrypt';
 import { NextResponse } from "next/server";
 
 export async function POST(request) {
+    await connectMongo();  // Certifique-se de conectar ao MongoDB
+
     const data = await request.json();
-    await connectMongo();
 
     try {
         // Verificar se o e-mail já existe
@@ -15,7 +16,7 @@ export async function POST(request) {
             return NextResponse.json({ success: false, message: "E-mail já cadastrado." }, { status: 400 });
         }
 
-        // Hash da password antes de salvar
+        // Hash da senha antes de salvar
         const hashedPassword = await bcrypt.hash(data.password, 10);
         data.password = hashedPassword;
 
