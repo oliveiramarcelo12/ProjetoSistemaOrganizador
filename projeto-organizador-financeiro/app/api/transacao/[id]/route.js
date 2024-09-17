@@ -1,41 +1,79 @@
-import { atualizarTransacao, deletarTransacao } from "@/controllers/TransacaoController";
-import { NextResponse } from "next/server";
+'use client';
 
-export async function PUT(request, { params }) {
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+
+export default function TransacaoPage() {
+  const [transacao, setTransacao] = useState([]);
+  const [newTransacao, setNewTransacao] = useState('');
+  const [editTransacaoId, setEditTransacaoId] = useState(null);
+  const [editTitle, setEditTitle] = useState('');
+  const [error, setError] = useState('');
+  const router = useRouter();
+
+  const atualizarTransacao = async () => {
+    const token = localStorage.getItem('token');
+    
+    if (!token) {
+        setError("Token não encontrado. Faça login novamente.");
+        return;
+    }
+
     try {
-        // Obtenha o corpo da requisição
-        const data = await request.json();
+        const response = await fetch(`/api/transacao/${editTransacaoId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ title: editTitle }),
+        });
 
-        // Atualize a transação usando o ID fornecido nos parâmetros da URL
-        const transacao = await atualizarTransacao(params.id, data);
-
-        // Verifique se a transação foi atualizada com sucesso
-        if (!transacao) {
-            return NextResponse.json({ success: false, message: 'Transação não encontrada ou não atualizada' }, { status: 404 });
+        if (response.ok) {
+            const data = await response.json();
+            setTransacao(transacao.map((transacao) => 
+                (transacao._id === data.data._id ? data.data : transacao))
+            );
+            setEditTransacaoId(null);
+            setEditTitle('');
+            setError(null);
+        } else {
+            setError("Erro ao atualizar transação");
         }
-
-        // Retorne a resposta com sucesso
-        return NextResponse.json({ success: true, data: transacao });
     } catch (error) {
         console.error('Erro ao atualizar transação:', error);
-        return NextResponse.json({ success: false, message: 'Erro ao atualizar transação' }, { status: 500 });
+        setError('Erro ao atualizar transação');
     }
-}
+  };
 
-export async function DELETE(request, { params }) {
+  const deletarTransacao = async (id) => {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+        setError("Token não encontrado. Faça login novamente.");
+        return;
+    }
+
     try {
-        // Deletar a transação usando o ID fornecido nos parâmetros da URL
-        const result = await deletarTransacao(params.id);
+        const response = await fetch(`/api/transacao/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            },
+        });
 
-        // Verifique se a transação foi deletada com sucesso
-        if (!result) {
-            return NextResponse.json({ success: false, message: 'Transação não encontrada ou não deletada' }, { status: 404 });
+        if (response.ok) {
+            setTransacao(transacao.filter((transacao) => transacao._id !== id));
+            setError(null);
+        } else {
+            setError("Erro ao excluir transação");
         }
-
-        // Retorne a resposta com sucesso
-        return NextResponse.json({ success: true, message: 'Deletado com sucesso' });
     } catch (error) {
-        console.error('Erro ao deletar transação:', error);
-        return NextResponse.json({ success: false, message: 'Erro ao deletar transação' }, { status: 500 });
+        console.error('Erro ao excluir transação:', error);
+        setError('Erro ao excluir transação');
     }
+  };
+
+  // Restante do componente
 }

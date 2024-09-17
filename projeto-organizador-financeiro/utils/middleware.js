@@ -1,21 +1,20 @@
-// utils/middleware.js
 import jwt from 'jsonwebtoken';
 
 export function jwtMiddleware(handler) {
     return async (req, res) => {
-        const token = req.headers.authorization?.split(' ')[1];
-        
+        const token = req.headers.get('authorization')?.split(' ')[1];
+
         if (!token) {
-            return res.status(401).json({ message: 'Token ausente' });
+            return new Response(JSON.stringify({ message: 'Token ausente' }), { status: 401 });
         }
 
         try {
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
             req.user = decoded; // Adiciona os dados do usuário ao req
-            return handler(req, res);
+            return await handler(req, res); // Passa req e res para o handler
         } catch (error) {
             console.error('Token inválido', error);
-            return res.status(401).json({ message: 'Token inválido' });
+            return new Response(JSON.stringify({ message: 'Token inválido' }), { status: 401 });
         }
     };
 }

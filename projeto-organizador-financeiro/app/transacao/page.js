@@ -1,48 +1,54 @@
-'use client';
+"use client";
+
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function TransacaoPage() {
-  const [transacao, setTransacao] = useState([]);
-  const [newTransacao, setNewTransacao] = useState('');
+  const [transacoes, setTransacoes] = useState([]);
+  const [novaTransacao, setNovaTransacao] = useState({
+    tipo: 'receita',
+    valor: '',
+    descricao: '',
+    categoria: ''
+  });
   const [editTransacaoId, setEditTransacaoId] = useState(null);
-  const [editTitle, setEditTitle] = useState('');
+  const [editTransacao, setEditTransacao] = useState({});
+  const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const router = useRouter();
 
   useEffect(() => {
-    const fetchTransacao = async () => {
-      console.log('Fetching transactions...');
-      const token = localStorage.getItem('token');
-      if (!token) {
-        console.log('No token, redirecting to login...');
-        router.push('/login');
-        return;
-      }
-
+    const fetchTransacoes = async () => {
       try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          router.push('/login');
+          return;
+        }
+  
         const response = await fetch('/api/transacao', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-
+  
         if (response.ok) {
           const data = await response.json();
-          console.log('Transactions fetched:', data.data);
-          setTransacao(data.data);
-        } else {
-          console.log('Failed to fetch transactions, redirecting to login...');
+          setTransacoes(data || []);
+        } else if (response.status === 401) {
           router.push('/login');
+        } else {
+          setError('Erro ao obter transações');
         }
       } catch (error) {
-        console.error('Error fetching transactions:', error);
-        router.push('/login');
+        console.error('Erro ao buscar transações:', error);
+        setError('Erro ao buscar transações');
       }
     };
-
-    fetchTransacao();
+  
+    fetchTransacoes();
   }, [router]);
-
+  
   const addTransacao = async () => {
     const token = localStorage.getItem('token');
     try {
@@ -52,40 +58,39 @@ export default function TransacaoPage() {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ title: newTransacao }),
+        body: JSON.stringify(novaTransacao),
       });
-
+  
       if (response.ok) {
         const data = await response.json();
-        setTransacao([...transacao, data.data]);
-        setNewTransacao('');
+        // Verifique se data tem a estrutura esperada
+        if (data && data._id) {
+          setTransacoes([...transacoes, data]);
+          setNovaTransacao({
+            tipo: 'receita',
+            valor: '',
+            descricao: '',
+            categoria: ''
+          });
+          setError('');
+          setSuccessMessage('Transação adicionada com sucesso!');
+        } else {
+          setError('Erro ao adicionar transação');
+          setSuccessMessage('');
+        }
+      } else {
+        const errorText = await response.text();
+        setError(`Erro ao adicionar transação: ${errorText}`);
+        setSuccessMessage('');
       }
     } catch (error) {
-      console.error('Error adding transaction:', error);
+      console.error('Erro ao adicionar transação:', error);
+      setError('Erro ao adicionar transação');
+      setSuccessMessage('');
     }
   };
-
-  const deleteTransacao = async (id) => {
-    const token = localStorage.getItem('token');
-    try {
-      await fetch(`/api/transacao`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ id }),
-      });
-      setTransacao(transacao.filter((transacao) => transacao._id !== id));
-    } catch (error) {
-      console.error('Error deleting transaction:', error);
-    }
-  };
-
-  const startEditTransacao = (transacao) => {
-    setEditTransacaoId(transacao._id);
-    setEditTitle(transacao.title);
-  };
+  
+  
 
   const updateTransacao = async () => {
     const token = localStorage.getItem('token');
@@ -96,69 +101,158 @@ export default function TransacaoPage() {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ id: editTransacaoId, title: editTitle }),
+        body: JSON.stringify({ ...editTransacao, id: editTransacaoId }),
       });
 
       if (response.ok) {
         const data = await response.json();
-        setTransacao(
-          transacao.map((transacao) => (transacao._id === data.data._id ? data.data : transacao))
-        );
-        setEditTransacaoId(null);
-        setEditTitle('');
+        if (data && data._id) {
+          setTransacoes(
+            transacoes.map((item) =>
+              item._id === data._id ? data : item
+            )
+          );
+          setEditTransacaoId(null);
+          setEditTransacao({});
+          setSuccessMessage('Transação atualizada com sucesso!');
+          setError('');
+        } else {
+          setError('Erro ao atualizar transação');
+          setSuccessMessage('');
+        }
+      } else {
+        setError('Erro ao atualizar transação');
+        setSuccessMessage('');
       }
     } catch (error) {
-      console.error('Error updating transaction:', error);
+      console.error('Erro ao atualizar transação:', error);
+      setError('Erro ao atualizar transação');
+      setSuccessMessage('');
     }
+  };
+
+  const deleteTransacao = async (id) => {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await fetch(`/api/transacao?id=${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        setTransacoes(transacoes.filter((item) => item._id !== id));
+        setSuccessMessage('Transação excluída com sucesso!');
+        setError('');
+      } else {
+        setError('Erro ao excluir transação');
+        setSuccessMessage('');
+      }
+    } catch (error) {
+      console.error('Erro ao excluir transação:', error);
+      setError('Erro ao excluir transação');
+      setSuccessMessage('');
+    }
+  };
+
+  const startEditTransacao = (transacao) => {
+    setEditTransacaoId(transacao._id);
+    setEditTransacao(transacao);
   };
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     router.push('/login');
   };
-
   return (
-    <div>
+    <div className="transacao-page">
       <header className="header">
         <h1>Transações</h1>
         <button className="logout-button" onClick={handleLogout}>Sair</button>
       </header>
       <div className="transacao-container">
-        <h2 className="transacao-title">To-Do List</h2>
+        <h2 className="transacao-title">Gerenciar Transações</h2>
         <div className="add-transacao-container">
           <input
             type="text"
-            className="input-field"
-            placeholder="Nova tarefa"
-            value={newTransacao}
-            onChange={(e) => setNewTransacao(e.target.value)}
+            placeholder="Valor"
+            value={novaTransacao.valor}
+            onChange={(e) => setNovaTransacao({ ...novaTransacao, valor: e.target.value })}
           />
-          <button className="add-button" onClick={addTransacao}>Adicionar Tarefa</button>
+          <input
+            type="text"
+            placeholder="Descrição"
+            value={novaTransacao.descricao}
+            onChange={(e) => setNovaTransacao({ ...novaTransacao, descricao: e.target.value })}
+          />
+          <input
+            type="text"
+            placeholder="Categoria"
+            value={novaTransacao.categoria}
+            onChange={(e) => setNovaTransacao({ ...novaTransacao, categoria: e.target.value })}
+          />
+          <select
+            value={novaTransacao.tipo}
+            onChange={(e) => setNovaTransacao({ ...novaTransacao, tipo: e.target.value })}
+          >
+            <option value="receita">Receita</option>
+            <option value="despesa">Despesa</option>
+          </select>
+          <button onClick={addTransacao}>Adicionar</button>
         </div>
+  
+        {error && <p className="error-message">{error}</p>}
+        {successMessage && <p className="success-message">{successMessage}</p>}
+  
         <ul className="transacao-list">
-          {transacao.map((transacao) => (
-            <li key={transacao._id} className="transacao-item">
-              {editTransacaoId === transacao._id ? (
-                <>
-                  <input
-                    type="text"
-                    className="edit-input"
-                    value={editTitle}
-                    onChange={(e) => setEditTitle(e.target.value)}
-                  />
-                  <button className="add-button" onClick={updateTransacao}>Salvar</button>
-                </>
-              ) : (
-                <>
-                  {transacao.title}
-                  <button className="add-button" onClick={() => deleteTransacao(transacao._id)}>Excluir</button>
-                  <button className="add-button" onClick={() => startEditTransacao(transacao)}>Editar</button>
-                </>
-              )}
-            </li>
-          ))}
+          {Array.isArray(transacoes) && transacoes.length > 0 ? (
+            transacoes.map((item) => (
+              <li key={item._id} className="transacao-item">
+                {editTransacaoId === item._id ? (
+                  <div className="edit-transacao-container">
+                    <input
+                      type="text"
+                      value={editTransacao.valor}
+                      onChange={(e) => setEditTransacao({ ...editTransacao, valor: e.target.value })}
+                    />
+                    <input
+                      type="text"
+                      value={editTransacao.descricao}
+                      onChange={(e) => setEditTransacao({ ...editTransacao, descricao: e.target.value })}
+                    />
+                    <input
+                      type="text"
+                      value={editTransacao.categoria}
+                      onChange={(e) => setEditTransacao({ ...editTransacao, categoria: e.target.value })}
+                    />
+                    <select
+                      value={editTransacao.tipo}
+                      onChange={(e) => setEditTransacao({ ...editTransacao, tipo: e.target.value })}
+                    >
+                      <option value="receita">Receita</option>
+                      <option value="despesa">Despesa</option>
+                    </select>
+                    <button onClick={updateTransacao}>Salvar</button>
+                  </div>
+                ) : (
+                  <div className="transacao-item-content">
+                    <span>{item.valor} - {item.descricao} - {item.categoria}</span>
+                    <div className="transacao-actions">
+                      <button onClick={() => startEditTransacao(item)}>Editar</button>
+                      <button onClick={() => deleteTransacao(item._id)}>Excluir</button>
+                    </div>
+                  </div>
+                )}
+              </li>
+            ))
+          ) : (
+            <p>Nenhuma transação disponível.</p>
+          )}
         </ul>
       </div>
     </div>
   );
+  
 }
