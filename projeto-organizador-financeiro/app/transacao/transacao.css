@@ -1,0 +1,112 @@
+/* Estilo do header */
+.header {
+    background-color: #FF8C00; /* Laranja escuro */
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #FFA500; /* Laranja */
+  }
+  
+  /* Botão de logout */
+  .logout-button {
+    background-color: #FF4500; /* Laranja avermelhado */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .logout-button:hover {
+    background-color: #FF6347; /* Tom de vermelho mais escuro */
+  }
+  
+
+/* Estilo do container da página de transações */
+.transacao-container {
+    background-color: #FFF5E1; /* Fundo leve com tom de laranja */
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Título da página */
+  .transacao-title {
+    color: #FF8C00; /* Laranja escuro */
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  /* Input e botão de adicionar tarefa */
+  .add-transacao-container {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+  }
+  
+  .input-field {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #FFA500; /* Borda laranja */
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+  
+  .add-button {
+    background-color: #FFA500; /* Laranja */
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-button:hover {
+    background-color: #FF8C00; /* Laranja escuro no hover */
+  }
+  
+  /* Lista de tarefas */
+  .transacao-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .transacao-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .transacao-item button {
+    background-color: #FFA500; /* Laranja */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 5px;
+  }
+  
+  .transacao-item button:hover {
+    background-color: #FF8C00; /* Laranja escuro no hover */
+  }
+  
+  /* Input de edição */
+  .edit-input {
+    padding: 5px;
+    border: 2px solid #FFA500; /* Borda laranja */
+    border-radius: 5px;
+    margin-right: 10px;
+    font-size: 16px;
+  }
+  

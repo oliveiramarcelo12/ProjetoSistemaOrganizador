@@ -1,0 +1,72 @@
+/* Estilo do container da página de login */
+.login-container {
+    background-color: #FFF5E1; /* Fundo leve com tom de laranja */
+    padding: 40px;
+    border-radius: 10px;
+    max-width: 400px;
+    margin: auto; /* Centraliza horizontalmente */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centraliza verticalmente */
+  }
+  
+  /* Título da página */
+  .login-title {
+    color: #FF8C00; /* Laranja escuro */
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  /* Formulário de login */
+  .login-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Input fields */
+  .input-field {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 2px solid #FFA500; /* Borda laranja */
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+  
+  /* Botão de login */
+  .login-button {
+    background-color: #FFA500; /* Laranja */
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Botão hover */
+  .login-button:hover {
+    background-color: #FF8C00; /* Laranja escuro no hover */
+  }
+  
+  /* Texto de registro */
+  .register-text {
+    margin-top: 20px;
+    color: #333;
+  }
+  
+  /* Link de registro */
+  .register-link {
+    color: #FFA500; /* Laranja */
+    text-decoration: none;
+  }
+  
+  .register-link:hover {
+    color: #FF8C00; /* Laranja escuro no hover */
+  }
+  
